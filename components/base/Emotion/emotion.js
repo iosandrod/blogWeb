@@ -103,7 +103,7 @@ export const emotionData = [
   { id: 101, text: '街舞' },
   { id: 102, text: '献吻' },
   { id: 103, text: '左太极' },
-  { id: 104, text: '右太极' }
+  { id: 104, text: '右太极' },
 ]
 
 export function getImgUrl(id) {
@@ -125,7 +125,7 @@ export function emotion(res) {
 }
 
 export function replaceEmotionText(content) {
-  return content.replace(/<\/?.+?>/g, '').replace(/\[[\u4E00-\u9FA5]{1,3}\]/gi, emotion)
+  return content
+    .replace(/<\/?.+?>/g, '')
+    .replace(/\[[\u4E00-\u9FA5]{1,3}\]/gi, emotion)
 }
-
-// export { emotionData, getImgUrl, replaceEmotionText }

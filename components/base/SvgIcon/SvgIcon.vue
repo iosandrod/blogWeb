@@ -11,12 +11,12 @@ export default {
     icon: {
       type: String,
       required: true,
-      default: ''
+      default: '',
     },
     className: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   computed: {
     iconName() {
@@ -28,8 +28,8 @@ export default {
       } else {
         return 'svg-icon'
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

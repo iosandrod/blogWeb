@@ -15,25 +15,25 @@ export default {
   props: {
     src: {
       type: String,
-      default: () => null
+      default: () => null,
     },
     startTime: {
       type: Number,
-      default: () => null
+      default: () => null,
     },
     musicLrc: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   watch: {
     startTime(n, o) {
       this.specifiedTime(n)
-    }
+    },
   },
   methods: {
     play() {
-      console.log('被点击了');
+      console.log('被点击了')
       this.$refs.music.play()
     },
     pause() {
@@ -56,9 +56,9 @@ export default {
       res.length && (currentLrc = res[res.length - 1].lineLyric)
       this.$emit('updateLrc', {
         currentLrc,
-        currentTime: parseInt(e.target.currentTime)
+        currentTime: parseInt(e.target.currentTime),
       })
-    }
-  }
+    },
+  },
 }
 </script>

@@ -2,7 +2,11 @@
   <transition name="modal">
     <div class="modal-mask" @click="$emit('close', 'mask')">
       <div class="modal-wrapper">
-        <div :style="modalContainerStyle" class="modal-container" @click.stop="">
+        <div
+          :style="modalContainerStyle"
+          class="modal-container"
+          @click.stop=""
+        >
           <div class="modal-header">
             <slot name="header"></slot>
           </div>
@@ -14,8 +18,11 @@
           <div class="modal-footer">
             <slot name="footer"></slot>
           </div>
-
-          <a class="mode-close" href="javascript:;" @click="$emit('close', 'btn')">
+          <a
+            class="mode-close"
+            href="javascript:;"
+            @click="$emit('close', 'btn')"
+          >
             <i class="iconfont iconclose"></i>
           </a>
         </div>
@@ -30,16 +37,16 @@ export default {
   props: {
     width: {
       type: [Number, String],
-      default: '300px'
-    }
+      default: '300px',
+    },
   },
   computed: {
     modalContainerStyle() {
       return {
-        width: typeof this.width === 'number' ? `${this.width}px` : this.width
+        width: typeof this.width === 'number' ? `${this.width}px` : this.width,
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

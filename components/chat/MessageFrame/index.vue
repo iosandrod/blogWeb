@@ -1,45 +1,69 @@
 <template>
-  <div  id="box" class="message-box">
+  <div id="box" class="message-box">
     <div
       v-for="(item, index) in messageData"
       :key="index"
       :class="['message-box-item', messageClass(item)]"
     >
-
       <span
         v-if="['message', 'img'].includes(item.type)"
         class="message-box-item-info"
       >
-     <el-dropdown  trigger="click" placement="bottom-start">
-        <div class="info-box">
-          <span :class="['name']">
-            {{ item.userInfo && item.userInfo.nickname }}
-          </span>
-          <span
-            v-if="item.type === 'message'"
-            class="message"
-            v-html="replaceEmotionText(item.content)"
-          ></span>
-          <span v-if="item.type === 'img'" class="emoji">
-            <img :src="item.content" loading="lazy" @click.stop="previewImg(item)" />
-          </span>
-          <span class="time">{{formatChatTime(item.createdAt)}}</span>
-        </div>
-        <el-dropdown-menu v-if="item.userInfo" slot="dropdown">
-          <el-dropdown-item v-if="item.userInfo.userId !== mineUserId" icon="el-icon-chat-dot-round" @click.native="quoteMessage(item)">引用消息</el-dropdown-item>
-          <el-dropdown-item v-if="item.userInfo.userId === mineUserId" icon="el-icon-delete" @click.native="recallMessafe(item)">撤回消息</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-     <el-dropdown  v-if="item.userInfo"  trigger="click" :placement="item.userInfo.userId === mineUserId ? 'bottom-end' : 'bottom-start'">
-        <img class="avatar" :src="item.userInfo.avatar" />
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item v-if="item.userInfo.userId !== mineUserId" icon="el-icon-chat-dot-round" @click.native="quoteMessage(item)">@Ta</el-dropdown-item>
-          <el-dropdown-item icon="el-icon-delete" @click.native="readHomepage">查看主页</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+        <el-dropdown trigger="click" placement="bottom-start">
+          <div class="info-box">
+            <span :class="['name']">
+              {{ item.userInfo && item.userInfo.nickname }}
+            </span>
+            <span
+              v-if="item.type === 'message'"
+              class="message"
+              v-html="replaceEmotionText(item.content)"
+            ></span>
+            <span v-if="item.type === 'img'" class="emoji">
+              <img
+                :src="item.content"
+                loading="lazy"
+                @click.stop="previewImg(item)"
+              />
+            </span>
+            <span class="time">{{ formatChatTime(item.createdAt) }}</span>
+          </div>
+          <el-dropdown-menu v-if="item.userInfo" slot="dropdown">
+            <el-dropdown-item
+              v-if="item.userInfo.userId !== mineUserId"
+              icon="el-icon-chat-dot-round"
+              @click.native="quoteMessage(item)"
+              >引用消息</el-dropdown-item
+            >
+            <el-dropdown-item
+              v-if="item.userInfo.userId === mineUserId"
+              icon="el-icon-delete"
+              @click.native="recallMessafe(item)"
+              >撤回消息</el-dropdown-item
+            >
+          </el-dropdown-menu>
+        </el-dropdown>
+        <el-dropdown
+          v-if="item.userInfo"
+          trigger="click"
+          :placement="
+            item.userInfo.userId === mineUserId ? 'bottom-end' : 'bottom-start'
+          "
+        >
+          <img class="avatar" :src="item.userInfo.avatar" />
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item
+              v-if="item.userInfo.userId !== mineUserId"
+              icon="el-icon-chat-dot-round"
+              @click.native="quoteMessage(item)"
+              >@Ta</el-dropdown-item
+            >
+            <el-dropdown-item icon="el-icon-delete" @click.native="readHomepage"
+              >查看主页</el-dropdown-item
+            >
+          </el-dropdown-menu>
+        </el-dropdown>
       </span>
-
-
 
       <!-- info -->
       <span v-if="item.type === 'info'" class="msg"> {{ item.content }} </span>
@@ -58,7 +82,7 @@
       </span>
     </div>
     <div ref="end" class="end"></div>
-    <chat-preview ref="preImg" mode='preImg' :lock-modal="false" />
+    <chat-preview ref="preImg" mode="preImg" :lock-modal="false" />
   </div>
 </template>
 
@@ -70,17 +94,17 @@ import ChatPreview from '@/components/chat/ChatPreview/index.vue'
 
 export default {
   name: 'MessageBox',
-  components: {ChatPreview},
+  components: { ChatPreview },
   props: {
     messageData: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
       isVisible: true,
-      unReadMsg: 0
+      unReadMsg: 0,
     }
   },
   computed: {
@@ -100,7 +124,7 @@ export default {
           return 'info'
         }
       }
-    }
+    },
   },
   watch: {
     messageData(n, o) {
@@ -109,7 +133,7 @@ export default {
         this.unReadMsg += 1
         this.$emit('newMsg', this.unReadMsg)
       }
-    }
+    },
   },
   mounted() {
     // this.init()
@@ -120,14 +144,17 @@ export default {
   methods: {
     replaceEmotionText,
     formatChatTime,
-    readHomepage(){
-      this.$toast.info("这个需求得你来提呢qaq...")
+    readHomepage() {
+      this.$toast.info('这个需求得你来提呢qaq...')
     },
-    quoteMessage(item){
+    quoteMessage(item) {
       this.$emit('quoteMessage', item.userInfo.nickname)
     },
-    recallMessafe(item){
-      this.$emit("recallMessafe", {id:item.id,nickname:item.userInfo.nickname })
+    recallMessafe(item) {
+      this.$emit('recallMessafe', {
+        id: item.id,
+        nickname: item.userInfo.nickname,
+      })
     },
     /* TODO 新增聊天不能呗监听到 */
     // isAdmin(item) {
@@ -181,10 +208,10 @@ export default {
         // console.log('到底了');
       }
     },
-    previewImg({content}){
+    previewImg({ content }) {
       this.$refs.preImg.open(content)
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="less" scoped>
@@ -201,7 +228,7 @@ export default {
   &-item {
     display: flex;
     align-items: flex-start;
-    padding: 7px 0 ;
+    padding: 7px 0;
     flex-shrink: 0;
     &-info {
       display: flex;
@@ -233,7 +260,7 @@ export default {
             cursor: pointer;
           }
         }
-        .time{
+        .time {
           font-size: 12px;
           color: #9f9898;
           margin-top: 5px;

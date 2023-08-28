@@ -48,53 +48,53 @@ export default {
           'dashed',
           'text',
           'white',
-          'assist'
+          'assist',
         ])
       },
-      default: 'default'
+      default: 'default',
     },
     shape: {
       type: String,
       validator(value) {
         return oneOf(value, ['rect', 'radius', 'circle'])
       },
-      default: 'radius'
+      default: 'radius',
     },
     size: {
       type: String,
       validator(value) {
         return oneOf(value, ['small', 'large', 'default'])
       },
-      default: 'default'
+      default: 'default',
     },
     long: {
       type: Boolean,
-      default: false
+      default: false,
     },
     icon: {
       type: String,
-      default: ''
+      default: '',
     },
     iconOnRight: {
       type: Boolean,
-      default: false
+      default: false,
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     loading: {
       type: Boolean,
-      default: false
+      default: false,
     },
     ghost: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      showSlot: true
+      showSlot: true,
     }
   },
   computed: {
@@ -109,8 +109,8 @@ export default {
           [`${prefixCls}-${this.size}`]: this.size !== 'default',
           [`${prefixCls}-loading`]: this.loading != null && this.loading,
           [`${prefixCls}-icon-only`]:
-            !this.showSlot && (!!this.icon || this.loading)
-        }
+            !this.showSlot && (!!this.icon || this.loading),
+        },
       ]
     },
     isHrefPattern() {
@@ -130,7 +130,7 @@ export default {
         const { htmlType } = this
         return { type: htmlType }
       }
-    }
+    },
   },
   mounted() {
     this.showSlot = this.$slots.default !== undefined
@@ -141,8 +141,8 @@ export default {
       this.$emit('click', event)
       // const openInNewWindow = event.ctrlKey || event.metaKey
       // this.handleCheckClick(event, openInNewWindow)
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="less" scoped>

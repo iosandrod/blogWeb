@@ -22,44 +22,44 @@ export default {
   props: {
     action: {
       type: String,
-      default: () => Config.uploadURL
+      default: () => Config.uploadURL,
     },
     id: {
       type: String,
-      default: () => 'uploadInput'
+      default: () => 'uploadInput',
     },
     url: {
       type: String,
-      default: () => null
+      default: () => null,
     },
     accept: {
       type: String,
-      default: () => 'image/*'
+      default: () => 'image/*',
     },
     multiple: {
       type: Boolean,
-      default: () => false
+      default: () => false,
     },
     fileKey: {
       type: String,
-      default: () => 'file'
+      default: () => 'file',
     },
     width: {
       type: String,
-      default: () => '100px'
+      default: () => '100px',
     },
     height: {
       type: String,
-      default: () => '100px'
+      default: () => '100px',
     },
     color: {
       type: String,
-      default: () => '#cfcfcf'
+      default: () => '#cfcfcf',
     },
     success: {
       type: Function,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   data() {
     return {}
@@ -82,8 +82,8 @@ export default {
       const config = { headers: { 'Content-Type': 'multipart/form-data' } }
       const res = await axios.post(this.action, formData, config)
       this.success(res.data)
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="less" scoped>
@@ -95,7 +95,7 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
-  input{
+  input {
     width: 100%;
     height: 100%;
     position: absolute;

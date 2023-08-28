@@ -1,10 +1,22 @@
 <template>
   <div class="z-toast">
     <transition :name="mergedOption.transition">
-      <div v-show="showing" :id="mergedOption.id" :class="clazz" class="z-toast z-toast-wrapper">
-        <Icon v-if="option.icon" :size="20" :icon="option.icon" style="margin-right: 10px;"></Icon>
+      <div
+        v-show="showing"
+        :id="mergedOption.id"
+        :class="clazz"
+        class="z-toast z-toast-wrapper"
+      >
+        <Icon
+          v-if="option.icon"
+          :size="20"
+          :icon="option.icon"
+          style="margin-right: 10px"
+        ></Icon>
         <span class="z-toast-content" v-html="mergedOption.message"></span>
-        <a v-if="mergedOption.closeable" class="z-toast-close" @click="close">&times;</a>
+        <a v-if="mergedOption.closeable" class="z-toast-close" @click="close"
+          >&times;</a
+        >
       </div>
     </transition>
   </div>
@@ -24,20 +36,20 @@ const DEFAULT_OPT = {
   type: 'info',
   icon: '',
   message: '',
-  closeable: false
+  closeable: false,
 }
 
 export default {
   DEFAULT_OPT,
   name: 'Toast',
   components: {
-    Icon
+    Icon,
   },
   data() {
     return {
       showing: false,
       queue: [],
-      option: {}
+      option: {},
     }
   },
   computed: {
@@ -45,16 +57,17 @@ export default {
       return Object.assign({}, DEFAULT_OPT, this.option)
     },
     clazz() {
-      const { type, size, horizontalPosition, verticalPosition } = this.mergedOption
+      const { type, size, horizontalPosition, verticalPosition } =
+        this.mergedOption
       return [
         `z-toast-${type}`,
         {
           [`z-toast-${size}`]: size,
           [`z-toast-${horizontalPosition}`]: horizontalPosition,
-          [`z-toast-${verticalPosition}`]: verticalPosition
-        }
+          [`z-toast-${verticalPosition}`]: verticalPosition,
+        },
       ]
-    }
+    },
   },
   watch: {
     queue() {
@@ -64,7 +77,10 @@ export default {
       }
       this.showing = true
       this.option = this.queue[0]
-      if ((!this.option.mode || this.option.mode === 'override') && pending > 1) {
+      if (
+        (!this.option.mode || this.option.mode === 'override') &&
+        pending > 1
+      ) {
         clearTimeout(this.timeoutId)
         this.showing = false
         this.timeoutId = null
@@ -76,14 +92,14 @@ export default {
           setTimeout(() => this.queue.shift())
         }, this.mergedOption.duration)
       }
-    }
+    },
   },
   methods: {
     close() {
       this.showing = false
       this.queue.shift()
-    }
-  }
+    },
+  },
 }
 </script>
 
